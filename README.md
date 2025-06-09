@@ -27,7 +27,7 @@ SMTP relay service that recieve emials from SMTP clients and send them to Office
 
 - This is SMTP relay ONLY! (No IMAP/POP3 support)
 - This is not a full email server, it does not store emails, it only relays them to Office 365.
-- SMTP Encryption (StartTLS, TLS) **is not supported!** It is highly recommended run this service on the same machine as your SMTP client. And setup `listen_addr:127.0.0.1:XXX`
+- SMTP Encryption (StartTLS, TLS) **is not supported!** It is highly recommended run this service on the same machine as your SMTP client. And setup `listen_addr:127.0.0.1:XXX` Communication with office 365 is of course encrypted using HTTPS.
 
 ## Quick Step By Step Summary
 
