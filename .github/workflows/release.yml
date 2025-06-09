@@ -1,0 +1,63 @@
+name: Release Build
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - goos: windows
+            goarch: amd64
+            ext: .exe
+            artifact: azureSMTPwithOAuth-windows-x64.zip
+          - goos: darwin
+            goarch: amd64
+            ext: ""
+            artifact: azureSMTPwithOAuth-macos-x64.zip
+          - goos: darwin
+            goarch: arm64
+            ext: ""
+            artifact: azureSMTPwithOAuth-macos-arm64.zip
+          - goos: linux
+            goarch: amd64
+            ext: ""
+            artifact: azureSMTPwithOAuth-linux-x64.zip
+          - goos: linux
+            goarch: arm64
+            ext: ""
+            artifact: azureSMTPwithOAuth-linux-arm64.zip
+    name: Build ${{ matrix.goos }}-${{ matrix.goarch }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Build binary
+        shell: bash
+        run: |
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags "-s -w" -trimpath -o azureSMTPwithOAuth${{ matrix.ext }}
+
+      - name: Prepare artifacts
+        shell: bash
+        run: |
+          mkdir dist
+          cp configDefault.yaml dist/config.yaml
+          cp README.md azureSMTPwithOAuth_RegisterApp.docx dist/
+          mv azureSMTPwithOAuth${{ matrix.ext }} dist/
+          cd dist
+          zip -r ../${{ matrix.artifact }} .
+
+      - name: Upload artifact to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./${{ matrix.artifact }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

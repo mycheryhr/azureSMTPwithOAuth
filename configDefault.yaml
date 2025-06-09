@@ -1,0 +1,12 @@
+log: ""
+log_level: info
+listen_addr: 127.0.0.1:2526
+oauth2_config:
+    client_id: ClientID 
+    client_secret: appSecret
+    tenant_id: TenantID
+    scopes:
+        - https://graph.microsoft.com/.default
+fallback_smtp_user: user@domain.com
+fallback_smtp_pass: supersecret
+save_to_sent: false
