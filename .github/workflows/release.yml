@@ -50,7 +50,7 @@ jobs:
         run: |
           mkdir dist
           cp configDefault.yaml dist/config.yaml
-          cp README.md azureSMTPwithOAuth_RegisterApp.docx dist/
+          cp README.md azureSMTPwithOAuth_RegisterApp.docx LICENCE dist/
           mv azureSMTPwithOAuth${{ matrix.ext }} dist/
           cd dist
           zip -r ../${{ matrix.artifact }} .
