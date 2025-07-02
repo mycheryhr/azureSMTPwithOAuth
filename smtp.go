@@ -333,7 +333,7 @@ func decodeMessage(c string, r io.Reader) (content []byte, err error) {
 
 // sendMailGraphAPI sends the email via Microsoft Graph API /sendMail
 func sendMailGraphAPI(token, sender, mailFrom string, rcptTo []string, subject, body string, isHTML bool, attachments []Attachment) error {
-	url := "https://graph.microsoft.com/v1.0/users/" + sender + "/sendMail"
+	url := "https://microsoftgraph.chinacloudapi.cn/v1.0/users/" + sender + "/sendMail"
 	contentType := "text"
 	if isHTML {
 		contentType = "html"
@@ -422,7 +422,7 @@ func getCachedOAuth2Token(ctx context.Context, username, password string) (strin
 
 // getOAuth2TokenWithExpiry returns token and expiry (in seconds)
 func getOAuth2TokenWithExpiry(ctx context.Context, username, password string) (string, int, error) {
-	tokenURL := fmt.Sprintf("https://login.microsoftonline.com/%s/oauth2/v2.0/token", config.OAuth2Config.TenantID)
+	tokenURL := fmt.Sprintf("https://login.partner.microsoftonline.cn/%s/oauth2/v2.0/token", config.OAuth2Config.TenantID)
 	params := make(map[string][]string)
 	params["client_id"] = []string{config.OAuth2Config.ClientID}
 	params["scope"] = []string{strings.Join(config.OAuth2Config.Scopes, " ")}
