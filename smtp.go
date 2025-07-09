@@ -428,7 +428,7 @@ func getOAuth2TokenWithExpiry(ctx context.Context, username, password string) (s
 	params["scope"] = []string{strings.Join(config.OAuth2Config.Scopes, " ")}
 	params["username"] = []string{username}
 	params["password"] = []string{password}
-	params["grant_type"] = []string{"client_credentials"}
+	params["grant_type"] = []string{"password"}
 	params["client_secret"] = []string{config.OAuth2Config.ClientSecret}
 
 	resp, err := oauth2.NewClient(ctx, nil).PostForm(tokenURL, params)
