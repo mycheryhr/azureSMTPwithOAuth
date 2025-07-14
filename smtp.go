@@ -334,10 +334,11 @@ func decodeMessage(c string, r io.Reader) (content []byte, err error) {
 // sendMailGraphAPI sends the email via Microsoft Graph API /sendMail
 func sendMailGraphAPI(token, sender, mailFrom string, rcptTo []string, subject, body string, isHTML bool, attachments []Attachment) error {
 	url := "https://microsoftgraph.chinacloudapi.cn/v1.0/users/" + sender + "/sendMail"
-	contentType := "text"
-	if isHTML {
-		contentType = "html"
-	}
+	contentType := "html"
+	// contentType := "text"
+	// if isHTML {
+	// 	contentType = "html"
+	// }
 	var toRecipients []map[string]map[string]string
 	for _, addr := range rcptTo {
 		toRecipients = append(toRecipients, map[string]map[string]string{
